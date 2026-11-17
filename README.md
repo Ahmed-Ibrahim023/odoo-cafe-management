@@ -1,170 +1,80 @@
 # ☕ Cafe Management System – Odoo 17
 
-A custom Odoo ERP module designed to manage cafe operations, recipes, ingredients, Point of Sale integration, kitchen workflows, waste tracking, and profitability analysis.
-
-![Odoo](https://img.shields.io/badge/Odoo-17.0-714B67?logo=odoo)
-![Python](https://img.shields.io/badge/Python-Development-3776AB?logo=python)
-![JavaScript](https://img.shields.io/badge/JavaScript-Frontend-F7DF1E?logo=javascript)
-![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-4169E1?logo=postgresql)
-![License](https://img.shields.io/badge/License-LGPL--3-blue)
-
----
+An Odoo 17 custom module designed to support cafe operations, including recipe management, ingredient tracking, Point of Sale (POS) integration, and inventory management.
 
 ## 📌 Project Overview
 
-The Cafe Management System is a custom Odoo module that extends the standard Point of Sale functionality to support cafe-specific business operations.
+The Cafe Management System helps organize daily cafe operations through Odoo 17.
 
-It connects product recipes with inventory consumption, creates kitchen orders automatically after POS payments, tracks ingredient costs, and provides tools for waste and profitability management.
+It connects recipes with their ingredients and integrates with the Point of Sale workflow to support ingredient consumption tracking after successful customer payments.
 
-The goal is to connect daily cafe operations within one integrated ERP workflow.
+This project was developed as a practical learning experience in Odoo module development and customization.
 
 ## ✨ Key Features
 
-### 1. Recipe & Ingredient Management
-- Create and manage ingredients.
-- Link ingredients to stockable products.
-- Define recipes for POS products.
-- Support product variants and different sizes.
-- Calculate recipe costs.
+- **Recipe Management:** Create and manage cafe recipes and their ingredients.
+- **Ingredient Management:** Track ingredients and related inventory information.
+- **POS Integration:** Connect cafe operations with the Odoo Point of Sale system.
+- **Ingredient Consumption:** Deduct recipe ingredients after successful POS payments.
+- **Duplicate Deduction Prevention:** Help prevent ingredients from being deducted more than once for the same transaction.
+- **Kitchen Orders:** Support kitchen order workflows and kitchen display functionality.
+- **Inventory Tracking:** Track stock movements and ingredient availability.
+- **Low Stock Alerts:** Help identify ingredients that need replenishment.
+- **Waste Management:** Support tracking of wasted ingredients.
+- **Cost and Profit Analysis:** Provide information to help analyze recipe costs and profitability.
+- **Security:** Use Odoo security groups and access permissions.
+- **Automated Tests:** Include tests for important module functionality.
 
-### 2. Point of Sale Integration
-- Automatically process ingredient consumption after payment.
-- Support online and offline-synchronized POS orders.
-- Prevent duplicate ingredient deductions.
-- Check ingredient availability before payment when configured.
-- Support configurable ingredient restocking on refunds.
+## 🔄 Main Workflow
 
-### 3. Kitchen Management
-- Automatically create kitchen orders from paid POS orders.
-- Track kitchen order statuses.
-- Provide a kitchen display using a custom Kanban interface.
-- Notify the kitchen interface through the Odoo Bus.
-- Generate kitchen ticket references.
-
-### 4. Inventory Management
-- Deduct ingredients through stock moves.
-- Link stock moves to POS orders.
-- Use the POS configuration's source location.
-- Provide low-stock alerts.
-- Support retrying failed ingredient consumption.
-
-### 5. Waste Management
-- Record wasted ingredients.
-- Calculate waste costs.
-- Confirm waste records.
-
-### 6. Cost & Profit Analysis
-- Calculate ingredient costs.
-- Store cost information on POS order lines.
-- Calculate gross profit.
-
-### 7. Security & User Roles
-- Custom access rights.
-- Security groups for cafe operations.
-- Separate operational roles, including cashier, barista, storekeeper, and manager.
-
----
-
-## 🔄 Business Workflow
-
-```text
-Create Ingredients
-        |
-        v
-Define Recipes
-        |
-        v
-Link Recipes to POS Products
-        |
-        v
-Customer Places an Order
-        |
-        v
-POS Payment
-        |
-        v
-Create Kitchen Order
-        |
-        v
-Deduct Ingredients from Inventory
-        |
-        v
-Calculate Cost and Profit
-```
-
----
+1. Create ingredients and manage their inventory.
+2. Create recipes and assign the required ingredients and quantities.
+3. Configure products in the Point of Sale.
+4. Process a customer order through the POS.
+5. After successful payment, calculate the required ingredient quantities.
+6. Update ingredient consumption and inventory movements.
+7. Monitor stock levels and review cafe operations.
 
 ## 🛠️ Technologies Used
 
-| Technology | Purpose |
-|---|---|
-| Odoo 17 | ERP Framework |
-| Python | Backend Business Logic |
-| PostgreSQL | Database |
-| XML | Views, Security and Reports |
-| JavaScript | POS and Kitchen Interface |
-| OWL / Odoo Web Assets | Frontend Integration |
-| Git & GitHub | Version Control |
+- Python
+- Odoo 17
+- PostgreSQL
+- XML
+- JavaScript
+- Odoo ORM
+- Odoo Point of Sale
+- Git and GitHub
 
-## 🏗️ Project Structure
+## 📂 Project Structure
 
 ```text
 cafe_management/
 │
-├── data/
-│   ├── cron.xml
-│   ├── cafe_data.xml
-│   └── sequence.xml
-│
-├── demo/
-│   └── cafe_demo.xml
-│
 ├── models/
-│   ├── cafe_ingredient.py
-│   ├── cafe_recipe.py
-│   ├── cafe_recipe_line.py
-│   ├── cafe_kitchen_order.py
-│   ├── cafe_waste.py
-│   ├── pos_order.py
-│   ├── pos_session.py
-│   └── stock_move.py
-│
-├── report/
-│   └── cafe_receipt.xml
-│
+├── views/
 ├── security/
-│   ├── security.xml
-│   └── ir.model.access.csv
-│
 ├── static/
 │   └── src/
-│       ├── backend/
-│       └── pos/
-│
+├── report/
 ├── tests/
-│   └── test_consumption.py
-│
-├── views/
+├── data/
+├── demo/
 │
 ├── __init__.py
-└── __manifest__.py
+├── __manifest__.py
+└── README.md
 ```
 
 ## ⚙️ Installation
 
 ### Requirements
 
-- Odoo 17.0
+- Odoo 17
 - PostgreSQL
-- Required Odoo modules:
-  - point_of_sale
-  - stock
-  - account
-  - mail
-  - product
-  - bus
+- Python environment compatible with Odoo 17
 
-### Installation Steps
+### Steps
 
 1. Clone the repository:
 
@@ -172,80 +82,88 @@ cafe_management/
 git clone https://github.com/Ahmed-Ibrahim023/odoo-cafe-management.git
 ```
 
-2. Copy the `cafe_management` module into your Odoo custom addons directory.
+2. Copy the `cafe_management` module folder into your Odoo 17 custom addons directory.
 
-3. Restart the Odoo server.
+3. Make sure your Odoo configuration includes the custom addons path.
 
-4. Update the Apps List.
+4. Restart the Odoo server.
 
-5. Search for **Cafe Management**.
+5. Activate Developer Mode.
 
-6. Install the module.
+6. Go to **Apps** and click **Update Apps List**.
 
-### Running Tests
+7. Search for **Cafe Management** and install the module.
 
-Run the module tests using:
+## 📸 Application Screenshots
 
-```bash
-odoo -d DB -i cafe_management --test-tags /cafe_management --stop-after-init
-```
+### 1. Recipe Management
 
-Replace `DB` with your database name.
+Manage cafe recipes and their ingredients, including products such as Americano and Anise.
 
----
+![Recipe Management](screenshots/recipes.png)
+
+### 2. Point of Sale (POS)
+
+A cashier interface for selecting products and processing customer orders.
+
+![Point of Sale](screenshots/pos.png)
+
+### 3. Ingredients Management
+
+Manage ingredients and inventory items, including Anise and Arabica Coffee Beans.
+
+![Ingredients Management](screenshots/ingredients.png)
+
+### 4. Payment Confirmation & Receipt
+
+Display the successful payment confirmation and receipt after completing a POS transaction.
+
+![Payment Successful](screenshots/payment-successful.png)
 
 ## 🧪 Testing
 
-The project includes automated tests covering:
+The project includes a `tests/` directory for automated testing.
 
-- Recipe cost calculation.
-- Ingredient deduction with unit-of-measure conversion.
-- Prevention of duplicate ingredient deductions.
-- Ingredient availability checks.
-- Kitchen ticket sequence consistency.
+Tests can be executed using the Odoo test runner. For example:
 
-**Note:** Tests are included in the repository; execution and passing results should be verified in the target Odoo environment.
+```bash
+odoo --addons-path=addons,custom_addons \
+     -d cafe_test_db \
+     -i cafe_management \
+     --test-enable \
+     --stop-after-init
+```
 
-## 🔐 Important Design Considerations
+Replace `custom_addons` with your actual custom addons path.
 
-- Idempotent ingredient consumption to avoid duplicate stock deductions.
-- Failed consumption operations can be retried.
-- POS sales are not blocked by server-side consumption errors.
-- Ingredient restocking on refunds is configurable.
-- Recipe selection supports product variants.
-- Kitchen updates use Odoo Bus notifications.
+## 🧠 Development Notes
 
-## 📸 Screenshots
+This project explores practical Odoo development concepts, including:
 
-Screenshots of the application interface will be added here.
+- Custom Odoo models and fields.
+- ORM methods and business logic.
+- Model relationships.
+- XML views and menus.
+- Security groups and access control.
+- POS workflow customization.
+- Inventory operations.
+- Automated testing.
 
-Planned screenshots:
-- Cafe Dashboard
-- Ingredients Management
-- Recipe Management
-- Point of Sale Integration
-- Kitchen Display
-- Waste Management
-- Profit Analysis
+## 👨‍💻 Author
 
-## 👨‍💻 Project Information
+**Ahmed Mohamed Ibrahim**
 
-**Project:** Cafe Management System
+Aspiring Python | Odoo | AI Developer
 
-**Platform:** Odoo 17
+- GitHub: [Ahmed-Ibrahim023](https://github.com/Ahmed-Ibrahim023)
+- LinkedIn: [Ahmed Mohamed Ibrahim](https://www.linkedin.com/in/ahmed-m-ibrahim-435646351/)
 
-**Repository:** [odoo-cafe-management](https://github.com/Ahmed-Ibrahim023/odoo-cafe-management)
+## 🤖 AI Assistance
 
-**Developer:** Ahmed Mohamed Ibrahim
+This project was developed with AI assistance using Claude.
 
-**Development Note:** This project was created with AI assistance using Claude. It is included in my developer portfolio as a practical project for learning, understanding, testing, and demonstrating Odoo customization and ERP integration.
+It is part of my practical learning journey in Odoo development, with a focus on understanding the code structure, business logic, module architecture, and customization workflows.
 
 ## 📄 License
 
-This module is distributed under the LGPL-3 license, as specified in its manifest.
-
----
-
-⭐ If you find this project interesting, feel free to explore the repository.
-
-**Always learning. Always building.**
+This project is licensed under the LGPL-3.0 License, as specified in the module manifest.
