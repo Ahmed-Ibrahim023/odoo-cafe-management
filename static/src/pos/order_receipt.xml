@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="cafe_management.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="before">
+            <div t-if="props.data.cafe_kitchen_ticket"
+                 style="text-align: center; font-size: 150%; font-weight: bold; margin: 8px 0;">
+                Kitchen Ticket <t t-esc="props.data.cafe_kitchen_ticket"/>
+            </div>
+        </xpath>
+    </t>
+</templates>

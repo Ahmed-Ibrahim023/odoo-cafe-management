@@ -1,0 +1,25 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cafe_ingredient_cashier,cafe.ingredient cashier,model_cafe_ingredient,group_cafe_cashier,1,0,0,0
+access_cafe_ingredient_barista,cafe.ingredient barista,model_cafe_ingredient,group_cafe_barista,1,0,0,0
+access_cafe_ingredient_storekeeper,cafe.ingredient storekeeper,model_cafe_ingredient,group_cafe_storekeeper,1,1,1,0
+access_cafe_ingredient_manager,cafe.ingredient manager,model_cafe_ingredient,group_cafe_manager,1,1,1,1
+access_cafe_recipe_cashier,cafe.recipe cashier,model_cafe_recipe,group_cafe_cashier,1,0,0,0
+access_cafe_recipe_barista,cafe.recipe barista,model_cafe_recipe,group_cafe_barista,1,0,0,0
+access_cafe_recipe_storekeeper,cafe.recipe storekeeper,model_cafe_recipe,group_cafe_storekeeper,1,0,0,0
+access_cafe_recipe_manager,cafe.recipe manager,model_cafe_recipe,group_cafe_manager,1,1,1,1
+access_cafe_recipe_line_cashier,cafe.recipe.line cashier,model_cafe_recipe_line,group_cafe_cashier,1,0,0,0
+access_cafe_recipe_line_barista,cafe.recipe.line barista,model_cafe_recipe_line,group_cafe_barista,1,0,0,0
+access_cafe_recipe_line_storekeeper,cafe.recipe.line storekeeper,model_cafe_recipe_line,group_cafe_storekeeper,1,0,0,0
+access_cafe_recipe_line_manager,cafe.recipe.line manager,model_cafe_recipe_line,group_cafe_manager,1,1,1,1
+access_cafe_kitchen_order_cashier,cafe.kitchen.order cashier,model_cafe_kitchen_order,group_cafe_cashier,1,0,0,0
+access_cafe_kitchen_order_barista,cafe.kitchen.order barista,model_cafe_kitchen_order,group_cafe_barista,1,1,1,0
+access_cafe_kitchen_order_storekeeper,cafe.kitchen.order storekeeper,model_cafe_kitchen_order,group_cafe_storekeeper,1,0,0,0
+access_cafe_kitchen_order_manager,cafe.kitchen.order manager,model_cafe_kitchen_order,group_cafe_manager,1,1,1,1
+access_cafe_kitchen_order_line_cashier,cafe.kitchen.order.line cashier,model_cafe_kitchen_order_line,group_cafe_cashier,1,0,0,0
+access_cafe_kitchen_order_line_barista,cafe.kitchen.order.line barista,model_cafe_kitchen_order_line,group_cafe_barista,1,1,1,0
+access_cafe_kitchen_order_line_storekeeper,cafe.kitchen.order.line storekeeper,model_cafe_kitchen_order_line,group_cafe_storekeeper,1,0,0,0
+access_cafe_kitchen_order_line_manager,cafe.kitchen.order.line manager,model_cafe_kitchen_order_line,group_cafe_manager,1,1,1,1
+access_cafe_waste_storekeeper,cafe.waste storekeeper,model_cafe_waste,group_cafe_storekeeper,1,1,1,0
+access_cafe_waste_manager,cafe.waste manager,model_cafe_waste,group_cafe_manager,1,1,1,1
+access_cafe_waste_line_storekeeper,cafe.waste.line storekeeper,model_cafe_waste_line,group_cafe_storekeeper,1,1,1,1
+access_cafe_waste_line_manager,cafe.waste.line manager,model_cafe_waste_line,group_cafe_manager,1,1,1,1

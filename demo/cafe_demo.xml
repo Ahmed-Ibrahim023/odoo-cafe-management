@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Millilitre unit (Odoo core only ships Litre) -->
+    <record id="uom_milliliter" model="uom.uom">
+        <field name="name">mL</field>
+        <field name="category_id" ref="uom.product_uom_categ_vol"/>
+        <field name="uom_type">smaller</field>
+        <field name="factor">1000</field>
+        <field name="rounding">0.001</field>
+    </record>
+
+    <!-- Raw materials (stocked in kg / L / units, recipes use g / mL) -->
+    <record id="product_coffee_beans" model="product.template">
+        <field name="name">Coffee Beans</field>
+        <field name="detailed_type">product</field>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="standard_price">600</field>
+        <field name="sale_ok" eval="False"/>
+    </record>
+    <record id="product_milk" model="product.template">
+        <field name="name">Milk</field>
+        <field name="detailed_type">product</field>
+        <field name="uom_id" ref="uom.product_uom_litre"/>
+        <field name="uom_po_id" ref="uom.product_uom_litre"/>
+        <field name="standard_price">35</field>
+        <field name="sale_ok" eval="False"/>
+    </record>
+    <record id="product_sugar" model="product.template">
+        <field name="name">Sugar</field>
+        <field name="detailed_type">product</field>
+        <field name="uom_id" ref="uom.product_uom_kgm"/>
+        <field name="uom_po_id" ref="uom.product_uom_kgm"/>
+        <field name="standard_price">40</field>
+        <field name="sale_ok" eval="False"/>
+    </record>
+    <record id="product_cup" model="product.template">
+        <field name="name">Paper Cup</field>
+        <field name="detailed_type">product</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+        <field name="uom_po_id" ref="uom.product_uom_unit"/>
+        <field name="standard_price">2</field>
+        <field name="sale_ok" eval="False"/>
+    </record>
+
+    <record id="ingredient_coffee" model="cafe.ingredient">
+        <field name="name">Coffee Beans</field>
+        <field name="product_id" eval="obj().env.ref('cafe_management.product_coffee_beans').product_variant_id.id"/>
+        <field name="min_qty">2</field>
+    </record>
+    <record id="ingredient_milk" model="cafe.ingredient">
+        <field name="name">Milk</field>
+        <field name="product_id" eval="obj().env.ref('cafe_management.product_milk').product_variant_id.id"/>
+        <field name="min_qty">10</field>
+    </record>
+    <record id="ingredient_sugar" model="cafe.ingredient">
+        <field name="name">Sugar</field>
+        <field name="product_id" eval="obj().env.ref('cafe_management.product_sugar').product_variant_id.id"/>
+        <field name="min_qty">1</field>
+    </record>
+    <record id="ingredient_cup" model="cafe.ingredient">
+        <field name="name">Paper Cup</field>
+        <field name="product_id" eval="obj().env.ref('cafe_management.product_cup').product_variant_id.id"/>
+        <field name="min_qty">50</field>
+    </record>
+
+    <!-- Sellable drink -->
+    <record id="product_cappuccino" model="product.template">
+        <field name="name">Cappuccino</field>
+        <field name="detailed_type">consu</field>
+        <field name="list_price">80</field>
+        <field name="available_in_pos" eval="True"/>
+        <field name="cafe_send_to_kitchen" eval="True"/>
+    </record>
+
+    <record id="recipe_cappuccino" model="cafe.recipe">
+        <field name="product_tmpl_id" ref="product_cappuccino"/>
+    </record>
+    <record id="recipe_cappuccino_beans" model="cafe.recipe.line">
+        <field name="recipe_id" ref="recipe_cappuccino"/>
+        <field name="ingredient_id" ref="ingredient_coffee"/>
+        <field name="quantity">18</field>
+        <field name="uom_id" ref="uom.product_uom_gram"/>
+    </record>
+    <record id="recipe_cappuccino_milk" model="cafe.recipe.line">
+        <field name="recipe_id" ref="recipe_cappuccino"/>
+        <field name="ingredient_id" ref="ingredient_milk"/>
+        <field name="quantity">150</field>
+        <field name="uom_id" ref="uom_milliliter"/>
+    </record>
+    <record id="recipe_cappuccino_sugar" model="cafe.recipe.line">
+        <field name="recipe_id" ref="recipe_cappuccino"/>
+        <field name="ingredient_id" ref="ingredient_sugar"/>
+        <field name="quantity">10</field>
+        <field name="uom_id" ref="uom.product_uom_gram"/>
+    </record>
+    <record id="recipe_cappuccino_cup" model="cafe.recipe.line">
+        <field name="recipe_id" ref="recipe_cappuccino"/>
+        <field name="ingredient_id" ref="ingredient_cup"/>
+        <field name="quantity">1</field>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
+    </record>
+</odoo>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cafe_kitchen_view_kanban" model="ir.ui.view">
+        <field name="name">cafe.kitchen.order.kanban</field>
+        <field name="model">cafe.kitchen.order</field>
+        <field name="arch" type="xml">
+            <kanban js_class="cafe_kitchen_kanban" default_group_by="state" group_create="false" group_delete="false"
+                    group_edit="false" records_draggable="false" class="o_kanban_small_column">
+                <field name="state"/>
+                <field name="summary"/>
+                <field name="kitchen_ticket"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="d-flex justify-content-between">
+                                <strong class="fs-4"><field name="kitchen_ticket"/></strong>
+                                <span class="text-muted"><field name="date_received" widget="remaining_days" invisible="1"/><field name="pos_reference"/></span>
+                            </div>
+                            <div style="white-space: pre-line;" class="my-2 fs-5">
+                                <t t-esc="record.summary.value"/>
+                            </div>
+                            <div>
+                                <button t-if="record.state.raw_value == 'new'" type="object" name="action_start"
+                                        class="btn btn-sm btn-primary">Start</button>
+                                <button t-if="record.state.raw_value in ['new', 'preparing']" type="object" name="action_ready"
+                                        class="btn btn-sm btn-success ms-1">Ready</button>
+                                <button t-if="record.state.raw_value == 'ready'" type="object" name="action_done"
+                                        class="btn btn-sm btn-secondary">Delivered</button>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="cafe_kitchen_view_tree" model="ir.ui.view">
+        <field name="name">cafe.kitchen.order.tree</field>
+        <field name="model">cafe.kitchen.order</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state=='new'" decoration-warning="state=='preparing'"
+                  decoration-success="state=='ready'" decoration-muted="state in ('done','cancel')">
+                <field name="kitchen_ticket"/>
+                <field name="name"/>
+                <field name="pos_reference"/>
+                <field name="config_id"/>
+                <field name="date_received"/>
+                <field name="prep_minutes"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cafe_kitchen_view_form" model="ir.ui.view">
+        <field name="name">cafe.kitchen.order.form</field>
+        <field name="model">cafe.kitchen.order</field>
+        <field name="arch" type="xml">
+            <form create="0">
+                <header>
+                    <button name="action_start" type="object" string="Start" class="btn-primary"
+                            invisible="state != 'new'"/>
+                    <button name="action_ready" type="object" string="Ready" class="btn-primary"
+                            invisible="state not in ('new', 'preparing')"/>
+                    <button name="action_done" type="object" string="Delivered" class="btn-primary"
+                            invisible="state != 'ready'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state not in ('new', 'preparing')"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,preparing,ready,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="pos_order_id"/>
+                            <field name="config_id"/>
+                        </group>
+                        <group>
+                            <field name="date_received"/>
+                            <field name="date_started"/>
+                            <field name="date_ready"/>
+                            <field name="prep_minutes"/>
+                        </group>
+                    </group>
+                    <field name="line_ids">
+                        <tree><field name="product_id"/><field name="qty"/><field name="note"/></tree>
+                    </field>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="cafe_kitchen_view_search" model="ir.ui.view">
+        <field name="name">cafe.kitchen.order.search</field>
+        <field name="model">cafe.kitchen.order</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="pos_reference"/>
+                <filter name="active_orders" string="Active" domain="[('state', 'in', ('new', 'preparing', 'ready'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_pos" string="Point of Sale" context="{'group_by': 'config_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="cafe_kitchen_action" model="ir.actions.act_window">
+        <field name="name">Kitchen Orders</field>
+        <field name="res_model">cafe.kitchen.order</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_active_orders': 1}</field>
+    </record>
+</odoo>

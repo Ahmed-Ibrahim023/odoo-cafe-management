@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_cafe_root" name="Cafe" sequence="45"
+              groups="group_cafe_cashier,group_cafe_barista,group_cafe_storekeeper,group_cafe_manager"/>
+
+    <menuitem id="menu_cafe_operations" name="Operations" parent="menu_cafe_root" sequence="10"/>
+    <menuitem id="menu_cafe_kitchen" name="Kitchen Orders" parent="menu_cafe_operations"
+              action="cafe_kitchen_action" sequence="10"
+              groups="group_cafe_barista,group_cafe_manager"/>
+    <menuitem id="menu_cafe_waste" name="Waste" parent="menu_cafe_operations"
+              action="cafe_waste_action" sequence="20"
+              groups="group_cafe_storekeeper,group_cafe_manager"/>
+
+    <menuitem id="menu_cafe_catalog" name="Catalog" parent="menu_cafe_root" sequence="20"
+              groups="group_cafe_storekeeper,group_cafe_manager"/>
+    <menuitem id="menu_cafe_recipes" name="Recipes" parent="menu_cafe_catalog"
+              action="cafe_recipe_action" sequence="10"/>
+    <menuitem id="menu_cafe_ingredients" name="Ingredients" parent="menu_cafe_catalog"
+              action="cafe_ingredient_action" sequence="20"/>
+
+    <menuitem id="menu_cafe_reports" name="Reports" parent="menu_cafe_root" sequence="30"
+              groups="group_cafe_manager"/>
+    <menuitem id="menu_cafe_report_profit" name="Sales &amp; Profit" parent="menu_cafe_reports"
+              action="cafe_profit_action" sequence="10"/>
+    <menuitem id="menu_cafe_report_consumption" name="Ingredient Consumption" parent="menu_cafe_reports"
+              action="cafe_consumption_action" sequence="20"/>
+    <menuitem id="menu_cafe_report_waste" name="Waste Analysis" parent="menu_cafe_reports"
+              action="cafe_waste_report_action" sequence="30"/>
+</odoo>

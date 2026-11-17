@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- POS order: cafe tab -->
+    <record id="pos_order_form_cafe" model="ir.ui.view">
+        <field name="name">pos.order.form.cafe</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Cafe" name="cafe">
+                    <group>
+                        <group>
+                            <field name="cafe_consumed"/>
+                            <field name="cafe_kitchen_order_id"/>
+                            <field name="cafe_cost"/>
+                            <field name="cafe_profit"/>
+                        </group>
+                        <group>
+                            <field name="cafe_error" invisible="not cafe_error"/>
+                            <button name="action_cafe_retry" type="object" class="btn-primary"
+                                    string="Retry Ingredient Deduction"
+                                    invisible="cafe_consumed or state not in ('paid', 'done', 'invoiced')"/>
+                        </group>
+                    </group>
+                    <field name="cafe_move_ids">
+                        <tree>
+                            <field name="product_id"/>
+                            <field name="product_uom_qty"/>
+                            <field name="product_uom"/>
+                            <field name="location_id"/>
+                            <field name="location_dest_id"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- POS config: stock blocking switch -->
+    <record id="pos_config_form_cafe" model="ir.ui.view">
+        <field name="name">pos.config.form.cafe</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Cafe" name="cafe_settings">
+                    <field name="cafe_block_insufficient_stock"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product: recipe button + kitchen flag -->
+    <record id="product_template_form_cafe" model="ir.ui.view">
+        <field name="name">product.template.form.cafe</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_cafe_recipes" type="object" class="oe_stat_button" icon="fa-cutlery"
+                        groups="cafe_management.group_cafe_manager,cafe_management.group_cafe_storekeeper">
+                    <field name="cafe_recipe_count" widget="statinfo" string="Recipes"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="cafe_send_to_kitchen"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
